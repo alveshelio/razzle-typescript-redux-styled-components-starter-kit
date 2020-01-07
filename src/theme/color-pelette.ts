@@ -1,0 +1,50 @@
+import { IColorPalette } from "./models/color-palette.model";
+
+export const colorPalette: IColorPalette = {
+  blue: {
+    25: "#f0fbff",
+    50: "#e0f4fc",
+    100: "#b2e3f7",
+    200: "#80d0f2",
+    400: "#79b7de",
+    500: "#08a1e5",
+    600: "#0695d5",
+    700: "#0082c3",
+    800: "#0071af",
+    900: "#00528d",
+  },
+  green: {
+    100: "#eafcf7",
+    200: "#cff8eb",
+    500: "#3ed3a3",
+    700: "#0bb07b",
+    800: "#00865a",
+  },
+  grey: {
+    50: "#fcfcfd",
+    100: "#fafbfb",
+    200: "#f8f9fb",
+    300: "#f2f4f4",
+    400: "#e1e4e8",
+    500: "#c9ced6",
+    600: "#b5bbc6",
+    700: "#8a94a6",
+    800: "#5d6c84",
+    900: "#304156",
+  },
+  red: {
+    200: "#ffeaea",
+    600: "#f03d3d",
+    700: "#dd2727",
+    800: "#bd0303",
+  },
+  yellow: {
+    200: "#fff6e4",
+    600: "#ffbb38",
+    700: "#ffa800",
+    800: "#ff8f00",
+    900: "#f07300",
+  },
+  white: "#fff",
+  black: "#000",
+};
