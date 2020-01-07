@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import Button from "./components/Button";
 import { CommonLayout } from "./pages/layout/common-layout";
+import CounterContainer from "./components/Counter.container";
 
 const Container = styled.div`
   max-width: 1200px;
@@ -25,6 +26,7 @@ const Home = () => (
           <a href="https://palmer.chat">Community Slack</a>
         </li>
       </ul>
+      <CounterContainer />
       <Button>Button</Button>
     </Container>
   </CommonLayout>

@@ -16,10 +16,10 @@ const StyledButton = styled.button`
   }
 `;
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactElement | string;
 }
 
-const Button: React.FC<ButtonProps> = ({ children }) => <StyledButton>{children}</StyledButton>;
+const Button: React.FC<ButtonProps> = ({ children, ...rest }) => <StyledButton {...rest}>{children}</StyledButton>;
 
 export default Button;
