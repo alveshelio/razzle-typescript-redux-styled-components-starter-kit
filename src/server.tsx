@@ -1,8 +1,14 @@
 import express from "express";
 import React from "react";
+import { Provider } from "react-redux";
+import qs from "qs";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
 import { ServerStyleSheet } from "styled-components";
+import serialize from "serialize-javascript";
+
+import { fetchCounter } from "./common/api/counter";
+import configureStore from "./common/store/configureStore";
 
 import App from "./App";
 
@@ -16,16 +22,27 @@ syncLoadAssets();
 const server = express()
   .disable("x-powered-by")
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR!))
-  .get("/*", (req: express.Request, res: express.Response) => {
+  .get("/*", async (req: express.Request, res: express.Response) => {
+    const params = qs.parse(req.query);
+    const response = await fetchCounter();
+
+    const counter = parseInt(params.counter, 10) || response || 0;
+    const preloadedState = { counter };
+    const store = configureStore(preloadedState);
+
     const sheet = new ServerStyleSheet();
     const context = {};
     const markup = renderToString(
       sheet.collectStyles(
         <StaticRouter context={context} location={req.url}>
-          <App />
+          <Provider store={store}>
+            <App />
+          </Provider>
         </StaticRouter>,
       ),
     );
+
+    const finalState = store.getState();
     const styleTags = sheet.getStyleTags();
     res.send(
       `<!doctype html>
@@ -45,8 +62,11 @@ const server = express()
     </head>
     <body>
         <div id="root">${markup}</div>
+        <script>
+          window.__PRELOADED_STATE__ = ${serialize(finalState)}
+        </script>
     </body>
-</html>`,
+    </html>`,
     );
   });
 
